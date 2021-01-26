@@ -2,7 +2,8 @@ import random
 import os
 import time
 def game():
-    percent = 45
+    percent1 = 30
+    percent2 = 60
     os.system('cls')
     coin = 100
     while 1:
@@ -27,41 +28,53 @@ def game():
         if betting == coin:
             print("올인하셨습니다.")
 
-        person=str(input("무엇을 낼지 정하세요(가위, 바위, 보):\n"))
-        while(person != "가위" and person != "바위" and person != "보"):
+        person=str(input("무엇을 낼지 정하세요(가위, 바위, 보) 또는 (S, R, P):\n"))
+        while(person != "가위" and person != "S" and person != "s" and person != "바위" and person != "R" and person != "r" and person != "보" and person != "P" and person != "p"):
             print("가위, 바위, 보 중에 하나만 낼 수 있습니다.")
-            person=str(input("무엇을 낼지 정하세요(가위, 바위, 보):\n"))
+            person=str(input("무엇을 낼지 정하세요(가위, 바위, 보) 또는 (S, R, P):\n"))
             
         machine = random.randint(1,100)
-        if person == "가위" or person == "S" or person == "s":
-            if machine > percent:
+        if person == "가위" or person == 'S' or person == 's':
+            if machine > percent2:
                 print("상대: 주먹")
-                wl = 0
-            elif machine <= percent:
+                wl = -1
+            elif machine <= percent1:
                 print("상대: 보")
                 wl = 1
-            
-        if person == "바위" or person == "R" or person == "r":
-            if machine > percent:
-                print("상대: 보")
+            elif machine > percent1 and machine <= percent2:
+                print("상대: 가위")
                 wl = 0
-            elif machine <= percent:
+            
+        elif person == "바위" or person == "R" or person == "r":
+            if machine > percent2:
+                print("상대: 보")
+                wl = -1
+            elif machine <= percent1:
                 print("상대: 가위")
                 wl = 1
-            
-        if person == "보" or person == "P" or person == "p":
-            if machine > percent:
-                print("상대: 가위")
+            elif machine > percent1 and machine <= percent2:
+                print("상대: 바위")
                 wl = 0
-            elif machine <= percent:
+            
+        elif person == "보" or person == "P" or person == "p":
+            if machine > percent2:
+                print("상대: 가위")
+                wl = -1
+            elif machine <= percent1:
                 print("상대: 바위")
                 wl = 1
+            elif machine > percent1 and machine <= percent2:
+                print("상대: 보")
+                wl = 0
 
         if wl == 1:
             print("\n이겼습니다!!\n")
             coin = coin + betting
 
         elif wl == 0:
+            print("\n비겼습니다..\n")
+
+        elif wl == -1:
             print("\n졌습니다..\n")
             coin = coin - betting
 
